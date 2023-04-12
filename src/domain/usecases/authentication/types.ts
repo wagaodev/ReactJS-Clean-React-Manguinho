@@ -1,4 +1,4 @@
-import { AccountModel } from '../models/types';
+import { AccountModel } from 'domain/models/account-model/types';
 
 type TAuthenticationParams = {
   email: string;
