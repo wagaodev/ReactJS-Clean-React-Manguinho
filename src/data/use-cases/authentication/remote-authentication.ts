@@ -1,6 +1,6 @@
 import { THttpPostClient } from 'data/protocols/http/http-post-client';
 
-class RemoteAuthentication {
+export class RemoteAuthentication {
   constructor(
     private readonly url: string,
     private readonly httpPostClient: THttpPostClient,
@@ -10,5 +10,3 @@ class RemoteAuthentication {
     await this.httpPostClient.post(this.url);
   }
 }
-
-export { RemoteAuthentication };
