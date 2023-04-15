@@ -1,5 +1,5 @@
-import { THttpPostClient } from 'data/protocols/http/http-post-client';
-import { TRequestHttpPostClient } from 'data/protocols/http/types';
+import { THttpPostClient } from '../../protocols/http/http-post-client';
+import { TAuthenticationParams } from '../../../domain/usecases/authentication';
 
 export class RemoteAuthentication {
   constructor(
@@ -7,7 +7,7 @@ export class RemoteAuthentication {
     private readonly httpPostClient: THttpPostClient,
   ) {}
 
-  async auth(): Promise<void> {
-    await this.httpPostClient.post({ url: this.url } as any);
+  async auth(params: TAuthenticationParams): Promise<void> {
+    await this.httpPostClient.post({ url: this.url, body: params });
   }
 }
