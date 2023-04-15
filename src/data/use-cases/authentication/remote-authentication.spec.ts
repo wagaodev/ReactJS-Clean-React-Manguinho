@@ -1,3 +1,4 @@
+import { fakerUrl } from '../../../utils/faker';
 import { HttpPostClientSpy } from '../../test/mock-http-client';
 import { RemoteAuthentication } from './remote-authentication';
 
@@ -6,8 +7,10 @@ type TSut = {
   httpPostClientSpy: HttpPostClientSpy;
 };
 
+const { domainUrl } = fakerUrl(); // Fake URL
+
 // Design Pattern Factory
-const makeSut = (url: string = 'any_url'): TSut => {
+const makeSut = (url = domainUrl): TSut => {
   const httpPostClientSpy = new HttpPostClientSpy();
   const sut = new RemoteAuthentication(url, httpPostClientSpy);
   return {
@@ -17,8 +20,8 @@ const makeSut = (url: string = 'any_url'): TSut => {
 };
 
 describe('RemoteAuthentication', () => {
-  test('Should call HttpPostClient with correct URL', async () => {
-    const url = 'other_url';
+  test('Should call HttpPostClient with correct url', async () => {
+    const url = domainUrl;
     const { httpPostClientSpy, sut } = makeSut(url);
     await sut.auth();
     expect(httpPostClientSpy.url).toBe(url);
