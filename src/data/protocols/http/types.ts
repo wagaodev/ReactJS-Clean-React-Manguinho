@@ -4,5 +4,6 @@ export type TRequestHttpPostClient = {
 };
 
 export type TBodyHttpPostClient = {
-  name?: string;
+  email?: string;
+  password?: string;
 };
