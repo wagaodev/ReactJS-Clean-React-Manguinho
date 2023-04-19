@@ -1,12 +1,19 @@
 import { THttpPostClient } from '@/data/protocols/http/http-post-client';
-import { TRequestHttpPostClient } from '@/data/protocols/http/types';
+import {
+  HttpResponse,
+  TRequestHttpPostClient,
+} from '@/data/protocols/http/types';
+import { HttpStatusCode } from '@/enum/http-status-code';
 
 export class HttpPostClientSpy implements THttpPostClient {
   url?: string;
   body?: object;
-  async post(params: TRequestHttpPostClient): Promise<void> {
+  response: HttpResponse = {
+    statusCode: HttpStatusCode.NO_CONTENT,
+  };
+  async post(params: TRequestHttpPostClient): Promise<HttpResponse> {
     this.url = params.url;
     this.body = params.body;
-    return Promise.resolve();
+    return Promise.resolve(this.response);
   }
 }
