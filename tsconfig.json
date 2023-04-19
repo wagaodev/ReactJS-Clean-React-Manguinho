@@ -11,9 +11,10 @@
     "resolveJsonModule": true,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
-    "baseUrl": ".",
+    "baseUrl": "./src",
+    "rootDir": "./src",
     "paths": {
-      "src/*": ["src/*"]
+      "@/*": ["*"]
     },
     "checkJs": false,
     "declaration": true,
@@ -29,7 +30,7 @@
     "outDir": "./lib",
     "sourceMap": true,
     "isolatedModules": false,
-    "types": ["jest"]
+    "types": ["jest", "node"]
   },
   "include": ["src/**/*", "test/**/*"],
   "exclude": ["node_modules"]
