@@ -9,15 +9,20 @@ import {
   InvalidCredentialsError,
   NotFoundError,
 } from '@/domain/errors';
+import { TAuthenticationParams } from '@/domain/usecases/authentication';
+import { TAccountModel } from '@/domain/models/types';
 
 type TSut = {
   sut: RemoteAuthentication;
-  httpPostClientSpy: HttpPostClientSpy;
+  httpPostClientSpy: HttpPostClientSpy<TAuthenticationParams, TAccountModel>;
 };
 
 // Design Pattern Factory
 const makeSut = (url: string = faker.internet.url()): TSut => {
-  const httpPostClientSpy = new HttpPostClientSpy();
+  const httpPostClientSpy = new HttpPostClientSpy<
+    TAuthenticationParams,
+    TAccountModel
+  >();
   const sut = new RemoteAuthentication(url, httpPostClientSpy);
   return {
     sut,

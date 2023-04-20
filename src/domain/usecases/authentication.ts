@@ -1,4 +1,4 @@
-import { AccountModel } from '../models/account-model';
+import { TAccountModel } from '@/domain/models/types';
 
 export type TAuthenticationParams = {
   email: string;
@@ -6,5 +6,5 @@ export type TAuthenticationParams = {
 };
 
 export interface Authentication {
-  auth(params: TAuthenticationParams): Promise<AccountModel>;
+  auth(params: TAuthenticationParams): Promise<TAccountModel>;
 }

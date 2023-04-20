@@ -2,13 +2,17 @@ import { THttpPostClient } from '@/data/protocols/http/http-post-client';
 import { InternalServerError, NotFoundError } from '@/domain/errors';
 import { InvalidCredentialsError } from '@/domain/errors/invalid-credentials-error';
 import { UnexpectedError } from '@/domain/errors/unexpected-error';
+import { TAccountModel } from '@/domain/models/types';
 import { TAuthenticationParams } from '@/domain/usecases/authentication';
 import { HttpStatusCode } from '@/enum/http-status-code';
 
 export class RemoteAuthentication {
   constructor(
     private readonly url: string,
-    private readonly httpPostClient: THttpPostClient,
+    private readonly httpPostClient: THttpPostClient<
+      TAuthenticationParams,
+      TAccountModel
+    >,
   ) {}
 
   async auth(params: TAuthenticationParams): Promise<void> {
@@ -16,13 +20,6 @@ export class RemoteAuthentication {
       url: this.url,
       body: params,
     });
-
-    // if (
-    //   httpResponse.statusCode === HttpStatusCode.UNAUTHORIZED ||
-    //   HttpStatusCode.BAD_REQUEST
-    // ) {
-    //   throw new UnexpectedError();
-    // }
 
     switch (httpResponse.statusCode) {
       case HttpStatusCode.OK:

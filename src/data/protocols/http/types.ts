@@ -1,17 +1,12 @@
 import { HttpStatusCode } from '@/enum/http-status-code';
 
-export type TRequestHttpPostClient = {
+export type TRequestHttpPostClient<T> = {
   url: string;
-  body?: TBodyHttpPostClient | undefined;
-};
-
-export type TBodyHttpPostClient = {
-  email?: string;
-  password?: string;
+  body?: T;
 };
 
 // http-response
-export type HttpResponse = {
+export type HttpResponse<T> = {
   statusCode: HttpStatusCode;
-  body?: any;
+  body?: T;
 };
