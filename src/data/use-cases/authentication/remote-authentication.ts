@@ -3,10 +3,11 @@ import { InternalServerError, NotFoundError } from '@/domain/errors';
 import { InvalidCredentialsError } from '@/domain/errors/invalid-credentials-error';
 import { UnexpectedError } from '@/domain/errors/unexpected-error';
 import { TAccountModel } from '@/domain/models/types';
-import { TAuthenticationParams } from '@/domain/usecases/authentication';
+import { Authentication } from '@/domain/usecases/authentication';
+import { TAuthenticationParams } from '@/domain/usecases/types';
 import { HttpStatusCode } from '@/enum/http-status-code';
 
-export class RemoteAuthentication {
+export class RemoteAuthentication implements Authentication {
   constructor(
     private readonly url: string,
     private readonly httpPostClient: THttpPostClient<
@@ -15,7 +16,7 @@ export class RemoteAuthentication {
     >,
   ) {}
 
-  async auth(params: TAuthenticationParams): Promise<void> {
+  async auth(params: TAuthenticationParams): Promise<TAccountModel> {
     const httpResponse = await this.httpPostClient.post({
       url: this.url,
       body: params,
@@ -23,7 +24,7 @@ export class RemoteAuthentication {
 
     switch (httpResponse.statusCode) {
       case HttpStatusCode.OK:
-        return;
+        return httpResponse.body;
       case HttpStatusCode.UNAUTHORIZED:
         throw new InvalidCredentialsError();
       case HttpStatusCode.INTERNAL_SERVER_ERROR:
