@@ -1,11 +1,13 @@
-import { THttpPostClient } from '@/data/protocols/http/http-post-client';
-import { InternalServerError, NotFoundError } from '@/domain/errors';
-import { InvalidCredentialsError } from '@/domain/errors/invalid-credentials-error';
-import { UnexpectedError } from '@/domain/errors/unexpected-error';
-import { TAccountModel } from '@/domain/models/types';
-import { Authentication } from '@/domain/usecases/authentication';
-import { TAuthenticationParams } from '@/domain/usecases/types';
-import { HttpStatusCode } from '@/enum/http-status-code';
+import { THttpPostClient } from '@/data/protocols';
+import { HttpStatusCode } from '@/enum';
+import {
+  InternalServerError,
+  NotFoundError,
+  UnexpectedError,
+  InvalidCredentialsError,
+} from '@/domain/errors';
+import { TAccountModel } from '@/domain/models';
+import { Authentication, TAuthenticationParams } from '@/domain/usecases';
 
 export class RemoteAuthentication implements Authentication {
   constructor(

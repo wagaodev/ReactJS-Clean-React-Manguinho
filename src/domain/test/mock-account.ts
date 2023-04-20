@@ -1,6 +1,6 @@
-import { TAuthenticationParams } from '@/domain/usecases/types';
+import { TAuthenticationParams } from '@/domain/usecases';
 import { faker } from '@faker-js/faker';
-import { TAccountModel } from '../models/types';
+import { TAccountModel } from '../models';
 
 export const mockAuthentication = (): TAuthenticationParams => ({
   email: faker.internet.email(),

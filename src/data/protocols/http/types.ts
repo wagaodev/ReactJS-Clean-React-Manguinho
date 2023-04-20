@@ -1,4 +1,4 @@
-import { HttpStatusCode } from '@/enum/http-status-code';
+import { HttpStatusCode } from '@/enum';
 
 export type TRequestHttpPostClient<T> = {
   url: string;

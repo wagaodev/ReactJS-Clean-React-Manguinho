@@ -1,4 +1,4 @@
-import { TAccountModel } from '@/domain/models/types';
+import { TAccountModel } from '@/domain/models';
 import { TAuthenticationParams } from './types';
 
 export interface Authentication {

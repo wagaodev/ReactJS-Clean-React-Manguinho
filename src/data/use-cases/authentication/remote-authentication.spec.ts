@@ -1,19 +1,16 @@
 import { faker } from '@faker-js/faker';
-import { HttpPostClientSpy } from '@/data/test/mock-http-client';
-import {
-  mockAccountModel,
-  mockAuthentication,
-} from '@/domain/test/mock-account';
+import { HttpPostClientSpy } from '@/data/test';
 import { RemoteAuthentication } from './remote-authentication';
-import { HttpStatusCode } from '@/enum/http-status-code';
+import { HttpStatusCode } from '@/enum';
+import { mockAccountModel, mockAuthentication } from '@/domain/test';
 import {
   InternalServerError,
   UnexpectedError,
   InvalidCredentialsError,
   NotFoundError,
 } from '@/domain/errors';
-import { TAuthenticationParams } from '@/domain/usecases/types';
-import { TAccountModel } from '@/domain/models/types';
+import { TAuthenticationParams } from '@/domain/usecases';
+import { TAccountModel } from '@/domain/models';
 
 type TSut = {
   sut: RemoteAuthentication;

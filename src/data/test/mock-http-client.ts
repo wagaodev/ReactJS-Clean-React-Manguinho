@@ -1,9 +1,9 @@
-import { THttpPostClient } from '@/data/protocols/http/http-post-client';
 import {
   HttpResponse,
   TRequestHttpPostClient,
-} from '@/data/protocols/http/types';
-import { HttpStatusCode } from '@/enum/http-status-code';
+  THttpPostClient,
+} from '@/data/protocols';
+import { HttpStatusCode } from '@/enum';
 
 export class HttpPostClientSpy<T, R> implements THttpPostClient<T, R> {
   url?: string;
