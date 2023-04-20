@@ -1,9 +1,14 @@
 import { faker } from '@faker-js/faker';
 import { HttpPostClientSpy } from '@/data/test/mock-http-client';
-import { RemoteAuthentication } from './remote-authentication';
 import { mockAuthentication } from '@/domain/test/mock-authentication';
-import { InvalidCredentialsError } from '@/domain/errors/invalid-credentials-error';
+import { RemoteAuthentication } from './remote-authentication';
 import { HttpStatusCode } from '@/enum/http-status-code';
+import {
+  InternalServerError,
+  UnexpectedError,
+  InvalidCredentialsError,
+  NotFoundError,
+} from '@/domain/errors';
 
 type TSut = {
   sut: RemoteAuthentication;
@@ -40,5 +45,29 @@ describe('RemoteAuthentication', () => {
     };
     const promise = sut.auth(mockAuthentication());
     await expect(promise).rejects.toThrow(new InvalidCredentialsError());
+  });
+  test('should throw UnexpedError if HttpPostClient returns 400', async () => {
+    const { sut, httpPostClientSpy } = makeSut();
+    httpPostClientSpy.response = {
+      statusCode: HttpStatusCode.BAD_REQUEST,
+    };
+    const promise = sut.auth(mockAuthentication());
+    await expect(promise).rejects.toThrow(new UnexpectedError());
+  });
+  test('should throw ServerError if HttpPostClient return 500', async () => {
+    const { sut, httpPostClientSpy } = makeSut();
+    httpPostClientSpy.response = {
+      statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
+    };
+    const promise = sut.auth(mockAuthentication());
+    await expect(promise).rejects.toThrow(new InternalServerError());
+  });
+  test('should throw UnexpectedError if HttpPostClient return 404', () => {
+    const { sut, httpPostClientSpy } = makeSut();
+    httpPostClientSpy.response = {
+      statusCode: HttpStatusCode.NOT_FOUND,
+    };
+    const promise = sut.auth(mockAuthentication());
+    expect(promise).rejects.toThrow(new NotFoundError());
   });
 });
