@@ -1,6 +1,6 @@
 import { HttpStatusCode } from '@/enum';
 
-export type TRequestHttpPostClient<T> = {
+export type TRequestHttpPostParams<T> = {
   url: string;
   body?: T;
 };
