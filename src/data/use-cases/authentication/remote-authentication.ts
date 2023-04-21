@@ -1,32 +1,32 @@
-import { THttpPostClient } from '@/data/protocols/http/http-post-client';
-import { InternalServerError, NotFoundError } from '@/domain/errors';
-import { InvalidCredentialsError } from '@/domain/errors/invalid-credentials-error';
-import { UnexpectedError } from '@/domain/errors/unexpected-error';
-import { TAuthenticationParams } from '@/domain/usecases/authentication';
-import { HttpStatusCode } from '@/enum/http-status-code';
+import { THttpPostClient } from '@/data/protocols';
+import { HttpStatusCode } from '@/enum';
+import {
+  InternalServerError,
+  NotFoundError,
+  UnexpectedError,
+  InvalidCredentialsError,
+} from '@/domain/errors';
+import { TAccountModel } from '@/domain/models';
+import { Authentication, TAuthenticationParams } from '@/domain/usecases';
 
-export class RemoteAuthentication {
+export class RemoteAuthentication implements Authentication {
   constructor(
     private readonly url: string,
-    private readonly httpPostClient: THttpPostClient,
+    private readonly httpPostClient: THttpPostClient<
+      TAuthenticationParams,
+      TAccountModel
+    >,
   ) {}
 
-  async auth(params: TAuthenticationParams): Promise<void> {
+  async auth(params: TAuthenticationParams): Promise<TAccountModel> {
     const httpResponse = await this.httpPostClient.post({
       url: this.url,
       body: params,
     });
 
-    // if (
-    //   httpResponse.statusCode === HttpStatusCode.UNAUTHORIZED ||
-    //   HttpStatusCode.BAD_REQUEST
-    // ) {
-    //   throw new UnexpectedError();
-    // }
-
     switch (httpResponse.statusCode) {
       case HttpStatusCode.OK:
-        return;
+        return httpResponse.body;
       case HttpStatusCode.UNAUTHORIZED:
         throw new InvalidCredentialsError();
       case HttpStatusCode.INTERNAL_SERVER_ERROR:

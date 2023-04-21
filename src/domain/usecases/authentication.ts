@@ -1,10 +1,6 @@
-import { AccountModel } from '../models/account-model';
-
-export type TAuthenticationParams = {
-  email: string;
-  password: string;
-};
+import { TAccountModel } from '@/domain/models';
+import { TAuthenticationParams } from './types';
 
 export interface Authentication {
-  auth(params: TAuthenticationParams): Promise<AccountModel>;
+  auth(params: TAuthenticationParams): Promise<TAccountModel>;
 }

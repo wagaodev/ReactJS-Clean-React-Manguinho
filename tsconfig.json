@@ -3,7 +3,6 @@
     "allowJs": false,
     "target": "ES2019",
     "module": "commonjs",
-    "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
