@@ -1,6 +1,6 @@
-import { AxiosHttpClient } from './axios.http-client';
 import axios from 'axios';
 import { faker } from '@faker-js/faker';
+import { AxiosHttpClient } from './axios.http-client';
 import { TRequestHttpPostParams } from '@/data/protocols';
 import { generateBodyRequestPostParams } from '@/utils';
 

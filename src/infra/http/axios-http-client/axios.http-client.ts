@@ -1,9 +1,9 @@
+import axios from 'axios';
 import {
   HttpPostClient,
   THttpResponse,
   TRequestHttpPostParams,
 } from '@/data/protocols';
-import axios from 'axios';
 
 export class AxiosHttpClient implements HttpPostClient<any, any> {
   async post(params: TRequestHttpPostParams<any>): Promise<THttpResponse<any>> {
