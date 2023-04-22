@@ -6,7 +6,7 @@ export type TRequestHttpPostParams<T> = {
 };
 
 // http-response
-export type HttpResponse<T> = {
+export type THttpResponse<T> = {
   statusCode: HttpStatusCode;
   body?: T;
 };
